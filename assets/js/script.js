@@ -1,11 +1,12 @@
 var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#select-city");
-var citySearchEl = document.querySelector("#current-city")
-var temperatureOutputEl = document.querySelector("#temp")
+var citySearchEl = document.querySelector("#current-city");
+var temperatureOutputEl = document.querySelector("#temp");
 var forecastInputEl = document.querySelector("#forecast-temp");
 var windOutput = document.querySelector("#wind");
 var humidityOutputEl = document.querySelector("#humidity");
 var uvOutputEl = document.querySelector("#uv-index");
+var dateTime = luxon.DateTime.now().toFormat("MMMM dd, yyyy");
 
 console.log(uvOutputEl);
 console.log(cityInputEl);
@@ -37,7 +38,7 @@ var fiveDayForecast = function (cityName) {
     .catch(function (error) {
       alert("Unable to connect to OpenWeather");
     });
-    //if (cityName) {}
+  //if (cityName) {}
 };
 
 var citySubmitHandler = function () {
@@ -54,52 +55,66 @@ var citySubmitHandler = function () {
     alert("Please enter a city");
   }
 };
-var displayForecast = function(forecast, selectCity) {
-    // if (forecast.length === 0) {
-    //     forecastInputEl.textContent = "No forecasts found.";
-    //     return;
-    // }
-    console.log(forecast);
-    console.log(selectCity);
-    // clear old content
-    citySearchEl.textContent = "";
-    citySearchEl.textContent = selectCity;
-    console(selectCity)
-}
+var displayForecast = function (forecast, selectCity) {
+  // if (forecast.length === 0) {
+  //     forecastInputEl.textContent = "No forecasts found.";
+  //     return;
+  // }
+  console.log(forecast);
+  console.log(selectCity);
+  // clear old content
+
+  citySearchEl.textContent = "  " + selectCity + " (" + dateTime + ")";
+  console(selectCity);
+};
 
 cityFormEl.addEventListener("submit", citySubmitHandler);
 
-var getUV = function(lat, long) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&exclude=hourly,minutely,alerts&appid=1a32bd1a7ece5ed4c04eaf133d9d2a51"
-    fetch(apiUrl)
-        .then(function(response) {
-            response.json().then(function(data) {
-                //     displayUvIndex(data)
-                console.log(data.current.uvi)
-        var uvIndex = data.current.uvi
-displayUvIndex(uvIndex)
-            });
-        });
-}
+var getUV = function (lat, long) {
+  var apiUrl =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+    lat +
+    "&lon=" +
+    long +
+    "&units=imperial&exclude=hourly,minutely,alerts&appid=1a32bd1a7ece5ed4c04eaf133d9d2a51";
+  fetch(apiUrl).then(function (response) {
+    response.json().then(function (data) {
+      //     displayUvIndex(data)
+      console.log(data);
+      var uvIndex = data.current.uvi;
+      displayUvIndex(uvIndex);
+      var humidity = data.current.humidity;
+      humidityOutputEl.innerHTML = " " + humidity + "%";
+
+      var windSpeed = data.current.wind_speed;
+      windOutput.innerHTML = " " + windSpeed + " MPH";
+
+      var temp = Math.floor(data.current.temp);
+      tempOutputEl.innerHTML = " " + temp + " ℉";
+
+      var city = data;
+    });
+  });
+};
 
 var displayUvIndex = function (uvIndex) {
-    console.log(uvIndex)
-   uvOutputEl.textContent = "";
+  console.log(uvIndex);
+  uvOutputEl.textContent = "";
 
-if ( uvIndex <= 2.99) {
+  if (uvIndex <= 2.99) {
     uvOutputEl.className += "has-background-success";
-    uvOutputEl.innerHTML = " " + uvIndex}
-    else if ( uvIndex >= 3 && uvIndex <= 5.99) {
-        uvOutputEl.className += "has-background-warning";
-        uvOutputEl.innerHTML = " " + uvIndex
-    } else if ( uvIndex >= 6 && uvIndex <= 7.99) {
-uvOutputEl.style.backgroundColor = "orange";
-        uvOutputEl.innerHTML = " " + uvIndex
-    } else if (uvIndex >= 8 && uvIndex <= 10.99) {
-        uvOutputEl.className += "has-background-danger";
-        uvOutputEl.innerHTML = " " + uvIndex 
-    } else {
-        uvOutputEl.style.backgroundColor = "#EE82EE";
-        uvOutputEl.innerHTML = " " + uvIndex
-    }
-}
+    uvOutputEl.innerHTML = " " + uvIndex;
+  } else if (uvIndex >= 3 && uvIndex <= 5.99) {
+    uvOutputEl.className += "has-background-warning";
+    uvOutputEl.innerHTML = " " + uvIndex;
+  } else if (uvIndex >= 6 && uvIndex <= 7.99) {
+    uvOutputEl.style.backgroundColor = "orange";
+    uvOutputEl.innerHTML = " " + uvIndex;
+  } else if (uvIndex >= 8 && uvIndex <= 10.99) {
+    uvOutputEl.className += "has-background-danger";
+    uvOutputEl.innerHTML = " " + uvIndex;
+  } else {
+    uvOutputEl.style.backgroundColor = "#EE82EE";
+    uvOutputEl.innerHTML = " " + uvIndex;
+  }
+};
