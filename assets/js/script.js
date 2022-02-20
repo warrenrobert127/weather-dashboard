@@ -1,17 +1,17 @@
 var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#select-city");
-var citySearchEl = document.querySelector("#current-city");
-var forecastInputEl = document.querySelector("#forecast-container");
+var citySearchEl = document.querySelector("#current-city")
+var forecastInputEl = document.querySelector("#forecast-container")
 var tempOutputEl = document.querySelector("#temp");
 var windOutput = document.querySelector("#wind");
-var humidityOutputEl = document.querySelector("#humidity");
-var uvOutputEl = document.querySelector("#uv-index");
-var foreCastOne = document.querySelector("#date1");
-var foreCastTwo = document.getElementById("date2");
-var foreCastThree = document.getElementById("date3");
-var foreCastFour = document.getElementById("date4");
-var foreCastFive = document.getElementById("date5");
-var cityList = document.querySelector("#savedCities");
+var humidityOutputEl = document.querySelector("#humidity")
+var uvOutputEl = document.querySelector("#uv-index")
+var foreCastOne = document.querySelector("#date1")
+var foreCastTwo = document.getElementById("date2")
+var foreCastThree = document.getElementById("date3")
+var foreCastFour = document.getElementById("date4")
+var foreCastFive = document.getElementById("date5")
+var cityList = document.querySelector("#savedCities")
 var savedCities = [];
 console.log(foreCastOne);
 
@@ -53,8 +53,7 @@ var fiveDayForecast = function (cityName) {
           var long = data.city.coord.lon;
           getUV(lat, long);
           displayFiveDay(data.list)
-          displayCityList(data.city.cityName)
-          var city = data.city.name
+          displayCityList(data.city.name)
         });
       } else {
         alert("Error: " + response.statusText);
@@ -66,24 +65,25 @@ var fiveDayForecast = function (cityName) {
 
 };
 
-var citySubmitHandler = function () {
+var citySubmitHandler = function (event) {
   event.preventDefault();
   console.log(event);
   // get value from input element
   var selectCity = cityInputEl.value.trim();
 
   if (selectCity) {
+      event.preventDefault();
     fiveDayForecast(selectCity);
     cityInputEl.value = "";
   } else {
     alert("Please enter a city");
   }
-  savedCities.push(selectedCity);
+  savedCities.push(selectCity);
 
   
   localStorage.setItem("cities", JSON.stringify(savedCities));
 };
-var displayForecast = function (forecast, selectCity) {
+var displayForecast = function (data, selectCity) {
   // if (forecast.length === 0) {
   //     forecastInputEl.textContent = "No forecasts found.";
   //     return;
@@ -95,8 +95,8 @@ var displayForecast = function (forecast, selectCity) {
   //  savedCities = JSON.parse(localStorage.getItem("cities"));
   //     // clear old content
   $(citySearchEl).attr("class", "is-size-3");
-  citySearchEl.textContent = "    " + selectedCity + "   (" + dateTime + ")";
-  console.log(selectedCity);
+  citySearchEl.textContent = "    " +selectCity + "   (" + dateTime + ")";
+  console.log(selectCity);
 };
 
 cityFormEl.addEventListener("submit", citySubmitHandler);
@@ -123,10 +123,8 @@ var getUV = function (lat, long) {
       var temp = Math.floor(data.current.temp);
       tempOutputEl.innerHTML = " " + temp + " ℉";
 
-      var city = data;
     });
-  });
-};
+})
 
 var displayUvIndex = function (uvIndex) {
   console.log(uvIndex);
@@ -152,9 +150,8 @@ var displayUvIndex = function (uvIndex) {
 var displayFiveDay = function (forecast) {
   // itereate over the forecast to get just 5 days add 8 to i to adjust for 3 hour forecasts
   for (var i = 5; i < forecast.length; i += 8) {
-    console.log(forecast[0].weather[0].icon);
-    console.log(forecast[i].dt_txt);
-  }
+    
+  };
 
   foreCastOne.textContent = forecast[0].dt_txt;
   // pull icon code and display
@@ -170,6 +167,7 @@ var displayFiveDay = function (forecast) {
   humid1.textContent = "Humidity: " + forecast[0].main.humidity + " %";
 
   // second day
+  foreCastTwo.textContent = dayTwoDate;
   var iconcode = forecast[1].weather[0].icon;
   var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
   $("#icon2").attr("src", iconurl);
@@ -182,6 +180,8 @@ var displayFiveDay = function (forecast) {
   humid2.textContent = "Humidity: " + forecast[1].main.humidity + " %";
 
   // third day
+  foreCastThree.textContent = dayThreeDate;
+
   var iconcode = forecast[2].weather[0].icon;
   var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
   $("#icon3").attr("src", iconurl);
@@ -194,6 +194,8 @@ var displayFiveDay = function (forecast) {
   humid3.textContent = "Humidity: " + forecast[2].main.humidity + " %";
 
   // fourth day
+  foreCastFour.textContent = dayFourDate;
+
   var iconcode = forecast[3].weather[0].icon;
   var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
   $("#icon4").attr("src", iconurl);
@@ -206,6 +208,8 @@ var displayFiveDay = function (forecast) {
   humid4.textContent = "Humidity: " + forecast[3].main.humidity + " %";
 
   //fith day
+  foreCastFive.textContent = dayFiveDate;
+  
   var iconcode = forecast[4].weather[0].icon;
   var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
   $("#icon5").attr("src", iconurl);
@@ -216,4 +220,27 @@ var displayFiveDay = function (forecast) {
   wind5.textContent = forecast[4].wind.speed + " MPH";
   var humid5 = document.querySelector("#humidity5");
   humid5.textContent = "Humidity: " + forecast[4].main.humidity + " %";
+};
+var displayCityList = function (city) {
+  var newCity = city;
+
+  var listEl = $("<li>" + newCity + "</li>");
+
+  $(listEl).attr(
+    "class",
+    "list-group-item has-background-grey-lighter my-1 is-size-4 has-text-centered"
+  );
+  $(".savedCities").append(listEl);
+
+  // cityEl.textContent = newCity;
+
+  // document.body.insert(cityListEL, cityList)
+  // $(".savedCities").append(newCity);
+  // $( "li" ).appendTo( $( ".savedCities" ) );
+  $(".list-group-item").click(function () {
+    var txt = $(".list-group-item")[0].outerText;
+    console.log(txt);
+    fiveDayForecast(txt);
+  });
+}
 };
