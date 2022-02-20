@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hello Bulma!</title>
+    <title>Dashboard of Weather</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
@@ -20,7 +20,7 @@
             <div class="field">
               <label class="label">Search for a City</label>
               <div class="control">
-                <input class="input" id="select-city" placeholder="San Diego" />
+                <input class="input" id="select-city" type="text" placeholder="San Diego" />
               </div>
               <div class="control">
                 <button class="button is-primary">Search</button>
@@ -29,14 +29,21 @@
           </form>
         </div>
       </section>
-      <section class="column">
+      <section class="column section">
         <!-- Current City Weather   -->
-        <section class="current-city box" id="current-city">
-          Current City Weather
-        </section>
+        <article class="current-city box">
+          <ul>
+            <li id="current-city"></li>
+            <li id="temp">Temp:</li>
+            <li id="wind">Wind:</li>
+            <li id="humidity">Humidity:</li>
+            <li class="uv-index" id="uv">UV Index :<span id="uv-index"></span></li>
+          </ul>
+        </article>
         <!--  Forecast  -->
         <section class="five-day-forecast" id="forecast">
           <header class="title">Five Day Forecast</header>
+          <h2 class="subtitle">5 Day forecast:</h2>
             <!-- Forecast Cards-->
           <div id="forecast-container cards" class="list-group">
             <div class="container">
