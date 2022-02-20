@@ -14,13 +14,21 @@
       <h1 class="title has-text-centered">Weather Dashboard</h1>
     </header>
     <main class="columns">
-      <section class="sidebar column is-one-quarter is-narrow section" id="city-search">
+      <section
+        class="sidebar column is-one-quarter is-narrow section"
+        id="city-search"
+      >
         <div>
           <form id="city-form">
             <div class="field">
               <label class="label">Search for a City</label>
               <div class="control">
-                <input class="input" id="select-city" type="text" placeholder="San Diego" />
+                <input
+                  class="input"
+                  id="select-city"
+                  type="text"
+                  placeholder="San Diego"
+                />
               </div>
               <div class="control">
                 <button class="button is-primary">Search</button>
@@ -28,32 +36,74 @@
             </div>
           </form>
         </div>
+        <ul id="savedCities"></ul>
       </section>
       <section class="column section">
         <!-- Current City Weather   -->
         <article class="current-city box">
           <ul>
             <li id="current-city"><span class="current-date"></span></li>
-            <li>Temp: <span id = temp><span>&#8457;</span>
-            });</span></li>
+            <img src="" id="icon-current" />
+            <li>Temp: <span id="temp"> });</span></li>
             <li>Wind: <span id="wind"></span></li>
-            <li>Humidity:<span  id="humidity" ></span></li>
-            <li class="uv-index" id="uv">UV Index :<span id="uv-index"></span></li>
+            <li>Humidity:<span id="humidity"></span></li>
+            <li class="uv-index" id="uv">
+              UV Index :<span id="uv-index"></span>
+            </li>
           </ul>
         </article>
         <!--  Forecast  -->
         <section class="five-day-forecast" id="forecast">
           <header class="title">Five Day Forecast</header>
           <h2 class="subtitle">5 Day forecast:</h2>
-            <!-- Forecast Cards-->
+          <!-- Forecast Cards-->
           <div id="forecast-container cards" class="list-group">
             <div class="container">
               <div class="columns">
-                <div class="column card1">asd</div>
-                <div class="column card2">asd</div>
-                <div class="column card3">asd</div>
-                <div class="column card4">asd</div>
-                <div class="column card5">asd</div>
+                <div class="column card1">
+                  <ul id="forecast-one">
+                    <li class="card-header" id="date1"></li>
+                    <li><img id="icon1" src="" alt="" /></li>
+                    <li id="temp1">Temp:</li>
+                    <li id="wind1"></li>
+                    <li id="humidity1"></li>
+                  </ul>
+                </div>
+                <div class="column card2">  
+                     <ul id="forecast-two">
+                  <li id="date2">tues</li>
+                  <li><img id="icon2" src="" alt="" /></li>
+                  <li id="temp2">Temp:</li>
+                  <li id="wind2"></li>
+                  <li id="humidity2"></li>
+                </ul>
+              </div>
+                <div class="column card3">
+                  <ul id="forecast-three">
+                    <li id="date3">wed</li>
+                    <li><img id="icon3" src="" alt="" /></li>
+                    <li id="temp3">Temp:</li>
+                    <li id="wind3"></li>
+                    <li id="humidity3"></li>
+                  </ul>
+                </div>
+                <div class="column card4">
+                  <ul id="forecast-four">
+                    <li id="date4">wed</li>
+                    <li><img id="icon4" src="" alt="" /></li>
+                    <li id="temp4">Temp:</li>
+                    <li id="wind4"></li>
+                    <li id="humidity4"></li>
+                  </ul>
+                </div>
+                <div class="column card5">
+                  <ul id="forecast-five">
+                    <li id="date5">wed</li>
+                    <li><img id="icon5" src="" alt="" /></li>
+                    <li id="temp5">Temp:</li>
+                    <li id="wind5"></li>
+                    <li id="humidity5"></li>
+                  </ul>
               </div>
             </div>
           </div>
