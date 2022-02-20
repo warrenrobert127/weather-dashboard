@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hello Bulma!</title>
+    <title>Dashboard of Weather</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
@@ -14,13 +14,21 @@
       <h1 class="title has-text-centered">Weather Dashboard</h1>
     </header>
     <main class="columns">
-      <section class="sidebar column is-one-quarter is-narrow section" id="city-search">
+      <section
+        class="sidebar column is-one-quarter is-narrow section"
+        id="city-search"
+      >
         <div>
           <form id="city-form">
             <div class="field">
               <label class="label">Search for a City</label>
               <div class="control">
-                <input class="input" id="select-city" placeholder="San Diego" />
+                <input
+                  class="input"
+                  id="select-city"
+                  type="text"
+                  placeholder="San Diego"
+                />
               </div>
               <div class="control">
                 <button class="button is-primary">Search</button>
@@ -28,31 +36,81 @@
             </div>
           </form>
         </div>
+        <ul id="savedCities"></ul>
       </section>
-      <section class="column">
+      <section class="column section">
         <!-- Current City Weather   -->
-        <section class="current-city box" id="current-city">
-          Current City Weather
-        </section>
+        <article class="current-city box">
+          <ul>
+            <li id="current-city"><span class="current-date"></span></li>
+            <img src="" id="icon-current" />
+            <li>Temp: <span id="temp"> });</span></li>
+            <li>Wind: <span id="wind"></span></li>
+            <li>Humidity:<span id="humidity"></span></li>
+            <li class="uv-index" id="uv">
+              UV Index :<span id="uv-index"></span>
+            </li>
+          </ul>
+        </article>
         <!--  Forecast  -->
         <section class="five-day-forecast" id="forecast">
           <header class="title">Five Day Forecast</header>
-            <!-- Forecast Cards-->
+          <h2 class="subtitle">5 Day forecast:</h2>
+          <!-- Forecast Cards-->
           <div id="forecast-container cards" class="list-group">
             <div class="container">
               <div class="columns">
-                <div class="column card1">asd</div>
-                <div class="column card2">asd</div>
-                <div class="column card3">asd</div>
-                <div class="column card4">asd</div>
-                <div class="column card5">asd</div>
+                <div class="column card1">
+                  <ul id="forecast-one">
+                    <li class="card-header" id="date1"></li>
+                    <li><img id="icon1" src="" alt="" /></li>
+                    <li id="temp1">Temp:</li>
+                    <li id="wind1"></li>
+                    <li id="humidity1"></li>
+                  </ul>
+                </div>
+                <div class="column card2">  
+                     <ul id="forecast-two">
+                  <li id="date2">tues</li>
+                  <li><img id="icon2" src="" alt="" /></li>
+                  <li id="temp2">Temp:</li>
+                  <li id="wind2"></li>
+                  <li id="humidity2"></li>
+                </ul>
+              </div>
+                <div class="column card3">
+                  <ul id="forecast-three">
+                    <li id="date3">wed</li>
+                    <li><img id="icon3" src="" alt="" /></li>
+                    <li id="temp3">Temp:</li>
+                    <li id="wind3"></li>
+                    <li id="humidity3"></li>
+                  </ul>
+                </div>
+                <div class="column card4">
+                  <ul id="forecast-four">
+                    <li id="date4">wed</li>
+                    <li><img id="icon4" src="" alt="" /></li>
+                    <li id="temp4">Temp:</li>
+                    <li id="wind4"></li>
+                    <li id="humidity4"></li>
+                  </ul>
+                </div>
+                <div class="column card5">
+                  <ul id="forecast-five">
+                    <li id="date5">wed</li>
+                    <li><img id="icon5" src="" alt="" /></li>
+                    <li id="temp5">Temp:</li>
+                    <li id="wind5"></li>
+                    <li id="humidity5"></li>
+                  </ul>
               </div>
             </div>
           </div>
         </section>
       </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
     <script src="./assets/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </body>
 </html>
